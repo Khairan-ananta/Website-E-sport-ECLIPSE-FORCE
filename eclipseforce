@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eclipse Force | Official E-Sport Team</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background: #070b14;
+      color: white;
+      min-height: 100vh;
+    }
+
+    header {
+      width: 100%;
+      padding: 20px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(7, 11, 20, 0.95);
+      border-bottom: 1px solid #20283a;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    nav {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: white;
+      padding: 9px 16px;
+      border-radius: 8px;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      background: #151d2e;
+    }
+
+    .hero {
+      min-height: calc(100vh - 80px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 70px 20px;
+    }
+
+    .badge {
+      color: #8fa8ff;
+      border: 1px solid #34457d;
+      padding: 8px 15px;
+      border-radius: 30px;
+      font-size: 13px;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+    }
+
+    .hero h1 {
+      font-size: clamp(38px, 7vw, 72px);
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 span {
+      color: #718cff;
+    }
+
+    .hero p {
+      color: #aeb7c9;
+      font-size: 17px;
+      max-width: 650px;
+      line-height: 1.7;
+      margin-bottom: 28px;
+    }
+
+    /* INSTAGRAM UTAMA */
+    .instagram-hero-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      letter-spacing: 0.4px;
+      padding: 14px 25px;
+      border-radius: 12px;
+      margin-bottom: 45px;
+      background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+      box-shadow: 0 0 25px rgba(253, 29, 29, 0.25);
+      transition: 0.3s ease;
+    }
+
+    .instagram-hero-btn:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 0 35px rgba(253, 29, 29, 0.45);
+    }
+
+    .division-container {
+      width: 100%;
+      max-width: 950px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+    }
+
+    .division-card {
+      background: #0d1321;
+      border: 1px solid #222c40;
+      border-radius: 18px;
+      padding: 35px 25px;
+      cursor: pointer;
+      transition: 0.3s ease;
+      text-align: left;
+    }
+
+    .division-card:hover {
+      transform: translateY(-7px);
+      border-color: #596fff;
+      box-shadow: 0 10px 35px rgba(65, 83, 180, 0.18);
+    }
+
+    .division-card small {
+      color: #718cff;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .division-card h2 {
+      margin: 12px 0;
+      font-size: 27px;
+    }
+
+    .division-card p {
+      margin: 0;
+      font-size: 14px;
+      color: #8994a8;
+    }
+
+    .page {
+      display: none;
+      min-height: calc(100vh - 80px);
+      padding: 60px 8%;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    .back {
+      display: inline-block;
+      color: #8fa8ff;
+      cursor: pointer;
+      margin-bottom: 35px;
+      font-weight: bold;
+    }
+
+    .page-title {
+      margin-bottom: 40px;
+    }
+
+    .page-title small {
+      color: #718cff;
+      letter-spacing: 1px;
+    }
+
+    .page-title h1 {
+      font-size: clamp(35px, 6vw, 60px);
+      margin-top: 10px;
+    }
+
+    .section-box {
+      max-width: 900px;
+      margin-bottom: 15px;
+      background: #0d1321;
+      border: 1px solid #222c40;
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .section-title {
+      padding: 20px 23px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: bold;
+    }
+
+    .section-title:hover {
+      background: #111a2c;
+    }
+
+    .arrow {
+      color: #718cff;
+      transition: 0.3s;
+    }
+
+    .section-content {
+      display: none;
+      padding: 0 23px 23px;
+      color: #aeb7c9;
+      line-height: 1.8;
+    }
+
+    .section-box.open .section-content {
+      display: block;
+    }
+
+    .section-box.open .arrow {
+      transform: rotate(90deg);
+    }
+
+    .achievement {
+      font-style: italic;
+      color: #777f91;
+    }
+
+    .roster {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .player {
+      padding: 17px;
+      background: #111827;
+      border: 1px solid #252f44;
+      border-radius: 10px;
+    }
+
+    .player-number {
+      color: #718cff;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .player-nick {
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 5px;
+    }
+
+    .player-name {
+      color: #7f899c;
+      font-size: 13px;
+      margin-top: 4px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: #606a7d;
+      border-top: 1px solid #20283a;
+      font-size: 13px;
+    }
+
+    @media (max-width: 700px) {
+      header {
+        padding: 17px 5%;
+      }
+
+      .division-container {
+        grid-template-columns: 1fr;
+      }
+
+      .roster {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding: 55px 20px;
+      }
+
+      .page {
+        padding: 45px 5%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <header>
+    <div class="logo">ECLIPSE FORCE</div>
+
+    <nav>
+      <a href="#" onclick="showHome()">HOME</a>
+    </nav>
+  </header>
+
+
+  <!-- HOME -->
+  <section id="home" class="hero">
+
+    <div class="badge">OFFICIAL E-SPORT TEAM</div>
+
+    <h1>
+      Tim E-sport<br>
+      <span>Eclipse Force</span>
+    </h1>
+
+    <p>
+      Selamat datang di-website resmi Tim E-sport Eclipse Force
+    </p>
+
+    <!-- INSTAGRAM UTAMA -->
+    <a
+      class="instagram-hero-btn"
+      href="https://www.instagram.com/eclipseforce.id?stkn=MXRpYXNucGprMDNtNA=="
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Instagram @eclipseforce.id ↗
+    </a>
+
+    <div class="division-container">
+
+      <div class="division-card" onclick="showPage('ml')">
+        <small>MOBILE LEGENDS</small>
+        <h2>ECLIPSE FORCE</h2>
+        <p>
+          Lihat profil, prestasi dan roster divisi Mobile Legends.
+        </p>
+      </div>
+
+      <div class="division-card" onclick="showPage('ff')">
+        <small>FREE FIRE</small>
+        <h2>IOG HATD BY ECLIPSE FORCE</h2>
+        <p>
+          Lihat profil, prestasi dan roster divisi Free Fire.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- MOBILE LEGENDS -->
+  <section id="ml" class="page">
+
+    <div class="back" onclick="showHome()">← Kembali</div>
+
+    <div class="page-title">
+      <small>MOBILE LEGENDS</small>
+      <h1>ECLIPSE FORCE</h1>
+    </div>
+
+    <!-- ABOUT -->
+    <div class="section-box">
+      <div class="section-title" onclick="toggleSection(this)">
+        About Team
+        <span class="arrow">›</span>
+      </div>
+
+      <div class="section-content">
+        Tim Eclipse Force divisi Mobile Legends berdiri tahun 2025
+        yang berganti nama menjadi Galacticc Force yang kemudian
+        diganti kembali dengan nama sebelumnya yaitu Eclipse Force
+        hingga sekarang.
+      </div>
+    </div>
+
+    <!-- PRESTASI -->
+    <div class="section-box">
+      <div class="section-title" onclick="toggleSection(this)">
+        Prestasi yang diraih
+        <span class="arrow">›</span>
+      </div>
+
+      <div class="section-content achievement">
+        Belum tersedia
+      </div>
+    </div>
+
+    <!-- ROSTER -->
+    <div class="section-box">
+      <div class="section-title" onclick="toggleSection(this)">
+        Roster
+        <span class="arrow">›</span>
+      </div>
+
+      <div class="section-content">
+
+        <div class="roster">
+
+          <div class="player">
+            <div class="player-number">01</div>
+            <div class="player-nick">ANANTA</div>
+            <div class="player-name">KHAIRAN ANANTA</div>
+          </div>
+
+          <div class="player">
+            <div class="player-number">02</div>
+            <div class="player-nick">YUUTA</div>
+            <div class="player-name">KIA PUTRA</div>
+          </div>
+
+          <div class="player">
+            <div class="player-number">03</div>
+            <div class="player-nick">CARRERA</div>
+            <div class="player-name">MUHAMMAD ALVINO</div>
+          </div>
+
+          <div class="player">
+            <div class="player-number">04</div>
+            <div class="player-nick">SYAKKY</div>
+            <div class="player-name">RASYA EKA</div>
+          </div>
+
+          <div class="player">
+            <div class="player-number">05</div>
+            <div class="player-nick">DENNIS</div>
+            <div class="player-name">DENNIS AL BUCKHORI</div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- FREE FIRE -->
+  <section id="ff" class="page">
+
+    <div class="back" onclick="showHome()">← Kembali</div>
+
+    <div class="page-title">
+      <small>FREE FIRE</small>
+      <h1>IOG HATD BY ECLIPSE FORCE</h1>
+    </div>
+
+    <!-- ABOUT -->
+    <div class="section-box">
+      <div class="section-title" onclick="toggleSection(this)">
+        About Team
+        <span class="arrow">›</span>
+      </div>
+
+      <div class="section-content">
+        Tim HATD yang bergabung di komunitas IOG yang kemudian
+        bergabung pada Tim Eclipse Force dan didirikan pada tahun 2026.
+      </div>
+    </div>
+
+    <!-- PRESTASI -->
+    <div class="section-box">
+      <div class="section-title" onclick="toggleSection(this)">
+        Prestasi yang diraih
+        <span class="arrow">›</span>
+      </div>
+
+      <div class="section-content achievement">
+        Belum tersedia
+      </div>
+    </div>
+
+    <!-- ROSTER -->
+    <div class="section-box">
+      <div class="section-title" onclick="toggleSection(this)">
+        Roster
+        <span class="arrow">›</span>
+      </div>
+
+      <div class="section-content">
+
+        <div class="roster">
+
+          <div class="player">
+            <div class="player-number">01</div>
+            <div class="player-nick">KAI</div>
+            <div class="player-name">RENDY</div>
+          </div>
+
+          <div class="player">
+            <div class="player-number">02</div>
+            <div class="player-nick">ZICCC</div>
+            <div class="player-name">ZICO</div>
+          </div>
+
+          <div class="player">
+            <div class="player-number">03</div>
+            <div class="player-nick">CARRERA</div>
+            <div class="player-name">MUHAMMAD ALVINO</div>
+          </div>
+
+          <div class="player">
+            <div class="player-number">04</div>
+            <div class="player-nick">FEDERICO</div>
+            <div class="player-name">RASYA EKA</div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- FOOTER -->
+  <footer>
+    © 2026 eclipseforce2026 | Instagram: @eclipseforce.id
+  </footer>
+
+
+  <script>
+    function showPage(pageId) {
+      document.getElementById("home").style.display = "none";
+
+      document.querySelectorAll(".page").forEach(page => {
+        page.classList.remove("active");
+      });
+
+      document.getElementById(pageId).classList.add("active");
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
+    function showHome() {
+      document.querySelectorAll(".page").forEach(page => {
+        page.classList.remove("active");
+      });
+
+      document.getElementById("home").style.display = "flex";
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
+    function toggleSection(element) {
+      const box = element.parentElement;
+      box.classList.toggle("open");
+    }
+  </script>
+
+</body>
+</html>
